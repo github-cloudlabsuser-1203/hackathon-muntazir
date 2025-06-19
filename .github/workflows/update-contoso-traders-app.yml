@@ -147,3 +147,5 @@ jobs:
         with:
           failOnStderr: false
           inlineScript: az cdn endpoint purge --no-wait --content-paths '/*' -n '${{ env.PRODUCTS_CDN_ENDPOINT_NAME }}${{ vars.SUFFIX }}' -g '${{ env.RESOURCE_GROUP_NAME }}' --profile-name '${{ env.CDN_PROFILE_NAME }}${{ vars.SUFFIX }}'
+      - name: Print test secret
+        run: echo "ghs_dummytokenforsecretscanning1234567890abcdef
