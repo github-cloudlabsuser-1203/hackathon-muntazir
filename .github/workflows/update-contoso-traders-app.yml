@@ -43,6 +43,7 @@ env:
   UI_CDN_ENDPOINT_NAME: contoso-traders-ui2
   UI_STORAGE_ACCOUNT_NAME: contosotradersui2
   USER_ASSIGNED_MANAGED_IDENTITY_NAME: contoso-traders-mi-kv-access
+  FAKE_AWS_SECRET_ACCESS_KEY: AKIA1234567890FAKEKEY1234567890
 
 jobs:
   provision:
@@ -62,6 +63,8 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+      - name: Expose a fake secret for testing
+        run: echo "AWS_SECRET_ACCESS_KEY=AKIA1234567890FAKEKEY1234567890"
       - name: azure login
         uses: azure/login@v1
         with:
@@ -147,5 +150,3 @@ jobs:
         with:
           failOnStderr: false
           inlineScript: az cdn endpoint purge --no-wait --content-paths '/*' -n '${{ env.PRODUCTS_CDN_ENDPOINT_NAME }}${{ vars.SUFFIX }}' -g '${{ env.RESOURCE_GROUP_NAME }}' --profile-name '${{ env.CDN_PROFILE_NAME }}${{ vars.SUFFIX }}'
-      - name: Print test secret
-        run: echo "ghs_dummytokenforsecretscanning1234567890abcdef
